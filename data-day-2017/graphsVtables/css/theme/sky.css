@@ -5,6 +5,7 @@
  */
 @import url(https://fonts.googleapis.com/css?family=Quicksand:400,700,400italic,700italic);
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,400,700);
+@import url(https://fonts.googleapis.com/css?family=Muli);
 .reveal a {
   line-height: 1.3em; }
 
@@ -22,7 +23,7 @@ body {
   background-color: #f7fbfc; }
 
 .reveal {
-  font-family:"Muli", "Open Sans", sans-serif;
+  font-family: "Open Sans", sans-serif;
   font-size: 40px;
   font-weight: normal;
   color: #333; }
@@ -52,10 +53,13 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #font-family:"Muli",family: "Quicksand", sans-serif;
-  font-weight: normal;
+  color: #333;
+  font-family: "Muli Light", "Muli";
+  font-weight: "Light";
+  font-size: 2.5rem;
   line-height: 1.2;
   letter-spacing: -0.08em;
+  text-transform: none;
   text-shadow: none;
   word-wrap: break-word; }
 
@@ -154,11 +158,15 @@ body {
   width: 90%;
   margin: 20px auto;
   text-align: left;
-  font-sifont-family:"Muli",  font-family: monospace;
+  font-size: 0.55em;
+  font-family: monospace;
   line-height: 1.2em;
   word-wrap: break-word;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);font-family:"Muli",code {
-  font-family: monospace; }
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
+
+.reveal code {
+  font-family: monospace;
+  font-size: 1.5rem; }
 
 .reveal pre code {
   display: block;
@@ -292,3 +300,31 @@ body {
   -webkit-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   -moz-transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985);
   transition: width 800ms cubic-bezier(0.26, 0.86, 0.44, 0.985); }
+
+/*********************************************
+ * PD THEMING OVERRIDES
+ *********************************************/
+.slide {
+  background: #681d68;
+  color: white; }
+
+.remark-code, .remark-inline-code {
+  font-family: 'Ubuntu Mono';
+  font-size: 2.5rem; }
+
+.pd-logo {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  width: 150px;
+  height: 45px; }
+
+.big-img {
+  height: 450px; }
+
+.really-big-img {
+  height: 600px; }
+
+.hco-img {
+  width: 90%;
+  height: 90%; }
