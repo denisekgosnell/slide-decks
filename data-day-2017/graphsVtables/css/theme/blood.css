@@ -18,7 +18,7 @@ body {
   background-color: #222; }
 
 .reveal {
-  font-family: Ubuntu, "sans-serif";
+  font-family:"Muli", Ubuntu, "sans-serif";
   font-size: 40px;
   font-weight: normal;
   color: #eee; }
@@ -49,11 +49,10 @@ body {
 .reveal h6 {
   margin: 0 0 20px 0;
   color: #eee;
-  font-family: Ubuntu, "sans-serif";
+  font-family: "Muli", Ubuntu, "sans-serif";
   font-weight: normal;
   line-height: 1.2;
   letter-spacing: normal;
-  text-transform: uppercase;
   text-shadow: 2px 2px 2px #222;
   word-wrap: break-word; }
 
@@ -157,9 +156,6 @@ body {
   line-height: 1.2em;
   word-wrap: break-word;
   box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
-
-.reveal code {
-  font-family: monospace; }
 
 .reveal pre code {
   display: block;

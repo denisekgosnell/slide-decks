@@ -10,7 +10,7 @@ body {
 }
 
 .reveal {
-	font-family: $mainFont;
+	font-family:"Muli", $mainFont;
 	font-size: $mainFontSize;
 	font-weight: normal;
 	color: $mainColor;
@@ -45,9 +45,7 @@ body {
 .reveal h5,
 .reveal h6 {
 	margin: $headingMargin;
-	color: $headingColor;
-
-	font-family: $headingFont;
+	color: $headingCofont-family:"Muli",family: $headingFont;
 	font-weight: $headingFontWeight;
 	line-height: $headingLineHeight;
 	letter-spacing: $headingLetterSpacing;
@@ -166,15 +164,13 @@ body {
 	margin: $blockMargin auto;
 
 	text-align: left;
-	font-size: 0.55em;
+	font-sfont-family:"Muli",
 	font-family: monospace;
 	line-height: 1.2em;
 
 	word-wrap: break-word;
 
-	box-shadow: 0px 0px 6px rgba(0,0,0,0.3);
-}
-.reveal code {
+	box-shadow: 0px 0px 6px rgba(0,0,0,0.3font-family:"Muli", code {
 	font-family: monospace;
 }
 

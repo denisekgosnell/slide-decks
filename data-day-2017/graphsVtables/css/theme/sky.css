@@ -22,7 +22,7 @@ body {
   background-color: #f7fbfc; }
 
 .reveal {
-  font-family: "Open Sans", sans-serif;
+  font-family:"Muli", "Open Sans", sans-serif;
   font-size: 40px;
   font-weight: normal;
   color: #333; }
@@ -52,12 +52,10 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #333;
-  font-family: "Quicksand", sans-serif;
+  color: #font-family:"Muli",family: "Quicksand", sans-serif;
   font-weight: normal;
   line-height: 1.2;
   letter-spacing: -0.08em;
-  text-transform: uppercase;
   text-shadow: none;
   word-wrap: break-word; }
 
@@ -156,13 +154,10 @@ body {
   width: 90%;
   margin: 20px auto;
   text-align: left;
-  font-size: 0.55em;
-  font-family: monospace;
+  font-sifont-family:"Muli",  font-family: monospace;
   line-height: 1.2em;
   word-wrap: break-word;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
-
-.reveal code {
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3);font-family:"Muli",code {
   font-family: monospace; }
 
 .reveal pre code {

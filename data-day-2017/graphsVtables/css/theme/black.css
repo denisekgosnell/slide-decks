@@ -15,7 +15,7 @@ body {
   background-color: #222; }
 
 .reveal {
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  font-family:"Muli","Muli", "Source Sans Pro", Helvetica, sans-serif;
   font-size: 42px;
   font-weight: normal;
   color: #fff; }
@@ -45,12 +45,10 @@ body {
 .reveal h5,
 .reveal h6 {
   margin: 0 0 20px 0;
-  color: #fff;
-  font-family: "Source Sans Pro", Helvetica, sans-serif;
+  cfont-family:"Muli",family:"Muli",family: "Source Sans Pro", Helvetica, sans-serif;
   font-weight: 600;
   line-height: 1.2;
   letter-spacing: normal;
-  text-transform: uppercase;
   text-shadow: none;
   word-wrap: break-word; }
 
@@ -148,14 +146,10 @@ body {
   position: relative;
   width: 90%;
   margin: 20px auto;
-  text-align: left;
-  font-size: 0.55em;
-  font-family: monospace;
+  text-align: lfont-family:"Muli",sifont-family:"Muli",  font-family: monospace;
   line-height: 1.2em;
   word-wrap: break-word;
-  box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.3); }
-
-.reveal code {
+  box-shadow: 0px 0px 6pfont-family:"Muli", 0, 0.3);font-family:"Muli",code {
   font-family: monospace; }
 
 .reveal pre code {
