@@ -83,15 +83,110 @@
 <div class="reveal">
     <div class="slides">
         <img src="pd-logo.png" class="pd-logo">
-        <section  data-markdown data-separator="---">
+        <section  data-markdown data-separator="---" data-separator-vertical="--" >
             <script type="text/template">
-### Graphs vs Tables: Ready? Fight.
-#### Lessons learned from building similarity models in both graph and relational dbs
-<br><br>
-###### Denise Gosnell, PhD
-###### Sr. Technical Evangelist, PokitDok
----
-/about/pokitdok
+                ### Graphs vs Tables: Ready? Fight.
+                #### Lessons learned from building similarity models in both graph and relational dbs
+                <br><br>
+                ###### Denise Gosnell, PhD
+                ###### Sr. Technical Evangelist, PokitDok
+                ---
+
+                ### /about/pokitdok
+
+                --
+
+                ### The Operating System For The Business Of Health
+
+                --
+
+                ### Obligatory map of API usage
+
+                <img src="AllEligiblityResponses.png" class="big-img" alt="Eligiblity API Usage">
+
+                --
+
+                ### X12 Eligibility request
+
+                ```html
+                HL*1**20*1~NM1*PR*2*Premium Gold Insurance Co.*****PI*0123456~HL*2*1*21*1~NM1*1P*
+                1*Back*Has*Your***XX*9876543210~HL*3*2*22*0~TRN*1*89368DC6A14E4E529AA876ED416E8A9F
+                *1453915417~NM1*IL*1*A-lot*Lifts****MI*MEM10001~DMG*D8*19820315*M~EQ*98^33~
+                ```
+                <br>
+                ##### (the spec for this one request is 552 pages)
+
+                --
+
+                ### Our Eligibility request
+
+                ```javascript
+                {
+                "member": {
+                "birth_date": "1982-03-15",
+                "first_name": "Lifts",
+                "last_name": "A-Lot",
+                "id": "MEM10001"
+                },
+                "provider": {
+                "first_name": "Has-Your",
+                "last_name": "Back",
+                "npi": "9876543210"
+                },
+                "service_types": ["professional_physician_visit_office", "chiropractic"],
+                "trading_partner_id": "premium_gold_insurance"
+                }
+                ```
+
+                --
+
+                ### X12 Eligibility response
+
+                ```html
+                HL*1**20*1~NM1*PR*2*Premium Gold Insurance Co.*****PI*0123456~HL*2*1*21*1~NM1*1P*
+                1*Back*Has*Your***XX*9876543210~HL*3*2*22*0~TRN*2*89368DC6A14E4E529AA876ED416E8A9F*
+                1453915417NM1*IL*1*A-lot*Lifts****MI*MEM10001~N3*2150 Pleasant Drive~N4*Sunny*CA*
+                900010001~DMG*D8*19820315*M~DTP*291*D8*20141001~EB*B**98****10~EB*A**33*****.20~
+                ```
+                <br>
+                #### oh God make it stop
+
+                --
+
+                ### Our Eligibility response
+
+                ```javascript
+                {
+                "coverage": [
+                "coinsurance": [
+                {
+                "benefit_percent": 0.2,
+                "service_types": [
+                "chiropractic"
+                ]
+                }
+                ],
+                "copay": {
+                "copayment": {
+                "amount": "10",
+                "currency": "USD"
+                },
+                "service_types": [
+                "professional_physician_visit_office"
+                ]
+                }
+                ],
+                "plan_begin_date": "2014-10-01",
+
+                (...and so on...)
+                }
+                ```
+                ---
+                ### Enter the data storage debate:
+                <br>
+                ##### relational? graph? document store...?
+                ---
+                /about/pokitdok
             </script>
         </section>
     </div>
