@@ -4,6 +4,26 @@
  * GLOBAL STYLES
  *********************************************/
 
+
+/*********************************************
+ * PD GLOBAL STYLE SETTINGS
+ *********************************************/
+$linkColor: #e7e7e6;
+$linkColorHover: lighten( $linkColor, 20% );
+
+$heading1Size: 2.11em;
+$heading2Size: 1.55em;
+$heading3Size: 1.00em;
+$heading4Size: 0.70em;
+
+// Primary/body text
+$mainFont: "Muli", "Muli Light", Impact, sans-serif;
+$mainFontSize: 40px;
+$mainColor: #eee;
+
+$headingFont: "Muli", "Muli Light", Impact, sans-serif;
+$headingColor:  #eee;
+
 body {
 	@include bodyBackground();
 	background-color: $backgroundColor;
@@ -178,6 +198,7 @@ body {
 .reveal code {
 	font-family: monospace;
     font-size: 1.5rem;
+    line-height: 1.15;
 }
 
 .reveal pre code {
