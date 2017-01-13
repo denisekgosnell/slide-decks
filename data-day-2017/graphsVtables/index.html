@@ -30,7 +30,7 @@
         <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
             <script type="text/template">
                 ## Graphs vs Tables: Ready? Fight.
-                ### Lessons learned from building similarity models in both graph and relational dbs
+                ### Lessons learned from building models in both graph and relational dbs
                 <br><br>
                 #### Denise Gosnell, PhD
                 #### Sr. Technical Evangelist, PokitDok
@@ -172,11 +172,9 @@
                 1. API event streaming with Kafka
                 2. Persistence to Titan 0.5.3 backed by Cassandra
                 3. OLAP graph traversals
+                <br>
+                <br>
             </script>
-        </section>
-        <section>
-            <img src="HealthGraph.png" class="small-img">
-            <h3>Graph DB Schema</h3>
         </section>
         <section data-background="providers_100k_v1_small.jpeg">
             <h3 style="text-align: left; padding: 0.0em 0.0em 15.0em 0.0em;">PokitDok Top 100K Providers</h3>
@@ -192,6 +190,10 @@
 
                 ### How do we identify similar doctors?
 
+                --
+                ## Triangular Closure
+
+                <img src="HealthGraph.png" class="med-img" alt="Graph Schema">
                 --
                 ## Triangular Closure
 
@@ -276,48 +278,71 @@
                 --
                 ## OLAP for recommendation
 
-                <img src="bipartieGraphSim_1.png" class="med-img" alt="Graph Similarity">
-
+                <img src="bipartieGraphSim_1.png" class="med-small-img" alt="Graph Similarity">
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 --
                 ## OLAP for recommendation
-                <img src="bipartieGraphSim_2.png" class="med-img" alt="Graph Similarity">
+                <img src="bipartieGraphSim_2.png" class="med-small-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                 ```
-
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 --
                 ## OLAP for recommendation
 
-                <img src="bipartieGraphSim_3.png" class="med-img" alt="Graph Similarity">
+                <img src="bipartieGraphSim_3.png" class="med-small-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                    .in("scheduled_with").filter{it.id != id}
                 ```
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
                 --
                 ## OLAP for recommendation
 
-                <img src="bipartieGraphSim_4.png" class="med-img" alt="Graph Similarity">
+                <img src="bipartieGraphSim_4.png" class="med-small-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                    .in("scheduled_with").filter{it.id != id}
                 ```
+                <br>
+                <br>
+                <br>
+                <br>
                 --
                 ## OLAP for recommendation
 
-                <img src="bipartieGraphSim_5.png" class="med-img" alt="Graph Similarity">
+                <img src="bipartieGraphSim_5.png" class="med-small-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                    .in("scheduled_with").filter{it.id != id}
                    .out("viewed")
                 ```
+                <br>
+                <br>
+                <br>
                 --
                 ## OLAP for recommendation
 
-                <img src="bipartieGraphSim_6.png" class="med-img" alt="Graph Similarity">
+                <img src="bipartieGraphSim_6.png" class="med-small-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
@@ -325,10 +350,273 @@
                    .out("viewed")
                    .groupCount(m)
                 ```
+                <br>
+                <br>
                 --
                 ## OLAP for recommendation
 
-                <img src="bipartieGraphSim_7.png" class="med-img" alt="Graph Similarity">
+                <img src="bipartieGraphSim_7.png" class="med-small-img" alt="Graph Similarity">
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                   .in("scheduled_with").filter{it.id != id}
+                   .out("viewed")
+                   .groupCount(m)
+                sort{a,b -> b.value <=> a.value}[0..2]
+                ```
+                <br>
+                --
+                ## Where to go from here?   TODO: LINKS
+
+                1. Docker container with full example: [PokitDok's gremlin-python lib on GitHub](https://github.com/pokitdok/gremlin-python)
+                2. Our Custom build of Titan: [also on git](NEED LINK)
+                3. Our blog for more on [graph load testing]() and [visualizations](): [Full Metal Health(fullmetalhealth.com)
+
+                --
+                ## The Brass Tax about Graphs
+                <br>
+                1. Architecture and Implementation: depends...
+                2. DB Maturity: DNE one db to rule them all
+                3. Visualizations:  D3 and Gephi got you covered
+                <br>
+                <br>
+
+                ---
+                ## Problem 2:
+
+                ### How do we group similar transactions of healthcare data?
+                <br>
+                --
+                ## Problem 2:
+
+                ### How do we group similar transactions of healthcare data?
+                ### Enter Tables.
+
+                --
+                ## Relational DB Infrastructure
+
+                1. API event streaming with Kafka
+                2. Persistence to mySQL DB
+                3. Batch processing for R&D
+                4. Spark streaming for production models
+
+                --
+                ## Our Eligibility response
+
+                ```javascript
+                {
+                  "coverage": [
+                    "coinsurance": [
+                      {
+                        "benefit_percent": 0.2,
+                        "service_types": [
+                          "chiropractic"
+                        ]
+                      }
+                    ],
+                    "copay": {
+                      "copayment": {
+                        "amount": "10",
+                        "currency": "USD"
+                      },
+                      "service_types": [
+                        "professional_physician_visit_office"
+                      ]
+                    }
+                  ],
+                  "plan_begin_date": "2014-10-01",
+
+                  (...and so on...)
+                }
+                ```
+                --
+                ## Our Eligibility response
+
+                ### JSON to tables?
+
+                ```
+                         |  member_id  |  npi  |     date     |  coverage_amount | ...
+                event_1  |     abc     |  123  |  2016 01 01  |       100        | ...
+                event_2  |     def     |  123  |  2016 01 01  |        75        | ...
+                event_3  |     abc     |  456  |  2016 01 02  |       100        | ...
+                event_4  |     def     |  456  |  2016 01 02  |        75        | ...
+                event_5  |     abc     |  789  |  2016 01 03  |       300        | ...
+                event_6  |     def     |  789  |  2016 01 03  |       200        | ...
+                  ...          ...        ...        ...              ...          ...
+                event_n  |     abc     |  123  |  2016 01 08  |       100        | ...
+
+                ```
+
+                --
+                ## What we really want: matrices
+
+                --
+                ### JSON to matrix
+                ```
+                         |  member_id.abc  |  member_id.def  |  npi.123  |  npi.456  |  npi.789 | ...
+                event_1  |        1        |        0        |     1     |     0     |     0    | ...
+                event_2  |        0        |        1        |     1     |     0     |     0    | ...
+                event_3  |        1        |        0        |     0     |     1     |     0    | ...
+                event_4  |        0        |        1        |     0     |     1     |     0    | ...
+                event_5  |        1        |        0        |     0     |     0     |     1    | ...
+                event_6  |        0        |        1        |     0     |     0     |     1    | ...
+                  ...            ...               ...            ...         ...         ...
+                event_n  |        1        |        0        |     1     |     0     |     0    | ...
+
+                ```
+                --
+                ## JSON to Matrix
+
+                ```python
+                def get_grammar(input_data,
+                            list_of_keys,
+                            ignore_keys=[],
+                            parent_key=None,
+                            key_separator="."):
+                    """
+                    >>> get_grammar({ "b": 1}, [], [], "a")
+                    ['a.b.1']
+                    >>> get_grammar({}, [], [], "a" )
+                    []
+                    >>> get_grammar({'b': 1 }, [], [] )
+                    ['b.1']
+                    >>> get_grammar({'b': {'c': 1 }}, [], ["c"], "a" )
+                    []
+                    >>> get_grammar({ 'a': {'b': [{'c': 1 }, {'c':1}]}}, [], [])
+                    ['a.b.c.1', 'a.b.c.1']
+                    >>> get_grammar({'b': 1, 'a': {'c': 'd'} } )
+                    ['b.1', 'a.c.d']
+                    """
+                ```
+
+                --
+                ## JSON to Matrix
+TODO CODE FORMATTING
+                ```python
+def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_separator="."):
+    if input_data:
+        if type(input_data) is dict:
+            for key, value in input_data.iteritems():
+                if not key in ignore_keys:
+                    key = '_'.join(key.split()).upper()
+                    next_key = key
+                    if parent_key:
+                        next_key = parent_key + key_separator + key
+                    list_of_keys = get_grammar(value, list_of_keys,
+                                                         ignore_keys, next_key)
+        elif type(input_data) is list:
+            for item in input_data:
+                list_of_keys = get_grammar(item, list_of_keys,ignore_keys, parent_key)
+        else:
+            input_data = '_'.join(str(input_data).split()).upper()
+            terminal_value = input_data
+            if parent_key:
+                terminal_value = parent_key + key_separator + input_data
+            list_of_keys.append(terminal_value)
+    return list_of_keys
+                ```
+                --
+                ## JSON to Matrix
+
+                ```python
+                from sklearn.feature_extraction import DictVectorizer
+                import json
+
+                def jsonl_to_binary_matrix(input_file):
+                    data = []
+                    with open(file_name, 'r') as read_file:
+                        for line in read_file:
+                            line_data = json.loads(line)
+                            file_grammar = get_grammar(line_data, [], IGNORE_KEYS)
+                            file_dict = {key: 1 for key in file_grammar}
+                            data.append(file_dict)
+                    vector_maker = DictVectorizer(dtype=np.float32)
+                    data = vector_maker.fit_transform(data)
+                ```
+                --
+
+                # From matrix to  ...
+                ### You want to do some reductions?
+                ####            PCA, SVD, NMF ... go crazy.
+
+                --
+                TODO glasses
+                ### You say similarity? Ready for that too.
+                #### Entity Co-occurence, K-means clustering, LDA ...
+                (•_•)
+                <br>
+                      ( • _ •)> ⌐■-■
+                <br>
+                                   (⌐■_■)
+
+                --
+                ## Co-occurrence Analysis
+                <img src="Co-Occurance.jpg" class="big-img" alt="Graph Similarity">
+
+                --
+                ## Co-occurrence Analysis
+                <img src="Co-Occurance.jpg" class="small-img" alt="Graph Similarity">
+
+                ```python
+                import numpy as np
+                import seaborn as sns
+                import pandas as pd
+
+                co_occurance_matrix = np.dot(data, data.transpose())
+                co_occurance_df = pd.DataFrame(data=co_occurance[0:,0:])
+                sns.set()
+                sns.heatmap(co_occurance_df, annot=True, fmt="d", linewidths=.5)
+                ```
+                <br>
+                --
+                ## Kmeans Analysis
+
+                <img src="kMeansInertia.png" class="med-img" alt="Graph Similarity">
+
+
+
+                --
+                ## Kmeans Analysis
+
+                <img src="diffInertia.png" class="med-img" alt="Graph Similarity">
+
+                --
+                ## Visualizing Clusters
+
+                <img src="circlePacking.png" class="big-img" alt="Graph Similarity">
+
+                --
+                ## Where to go from here? TODO LINKS
+
+                1. For these slides, code, and notebooks: DeniseKGosnell on GitHub/Twitter
+                2. Our blog for more on Kafka, load testing and infrastructure discussions: fullmetalhealth.com
+
+                --
+                ## The Brass Tax about Tables
+                1. Architecture and Implementation: your problem has probably already been solved.
+                2. DB Maturity: but scalability is relative.
+                3. Visualizations: Plenty of tools to choose from
+
+                ---
+
+                ## Graphs v. Tables
+
+                ### did we decide anything?
+
+                --
+
+                ## Graphs v. Tables
+                <br>
+                * What problem are you trying to solve?
+                * Does it need a database?
+                * Scalability? Run Time? Dev Time?
+                * Relationships vs properties?
+                <br>
+                <br>
+                --
+                ## Graphs: great for relationships
+
+                <img src="bipartieGraphSim_7.png" class="med-small-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
@@ -339,30 +627,39 @@
                 ```
 
                 --
-                ## Where to go from here?
+                ## Tables: use all the features
+                <img src="Co-Occurance.jpg" class="small-img" alt="Graph Similarity">
 
-                ### Docker container with full example: [PokitDok's gremlin-python lib on GitHub](https://github.com/pokitdok/gremlin-python)
-                ### Our Custom build of Titan: also on git
-                ### Our blog for more on graph load testing and visualizations: fullmetalhealth.com
+                ```python
+                import numpy as np
+                import seaborn as sns
+                import pandas as pd
 
-                --
-                ## The Brass Tax about Graphs
-                ### Architecture and Implementation:
-                Modeling relationships within data for extracting useful information
-                is well documented; but implementation is different issue.
+                co_occurance_matrix = np.dot(data, data.transpose())
+                co_occurance_df = pd.DataFrame(data=co_occurance[0:,0:])
+                sns.set()
+                sns.heatmap(co_occurance_df, annot=True, fmt="d", linewidths=.5)
+                ```
+                <br>
 
-
-                --
-                ## DB Maturity:
-                We've had ups and downs with just about every vendor out there.
-
-
-                --
-                ## Visualizations:
-                D3 and Gephi get you covered with everything you need.
-
-                ---
-
+            </script>
+        </section>
+        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
+            <script type="text/template">
+                <img src="Co-Occurance.jpg" class="big-img" alt="Graph Similarity">
+                ## Tables: Similarity
+            </script>
+        </section>
+        <section data-background="SimilarTradingPartners.png">
+            <h3 style="text-align: right; padding: 0.0em 0.0em 15.0em 0.0em;">Graphs: Similarity</h3>
+        </section>
+        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
+            <script type="text/template">
+                ## Graphs vs Tables: Ready? Fight.
+                ### Lessons learned from building models in both graph and relational dbs
+                <br><br>
+                #### Denise Gosnell, PhD
+                #### Sr. Technical Evangelist, PokitDok
             </script>
         </section>
     </div>

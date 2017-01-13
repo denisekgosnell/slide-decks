@@ -390,8 +390,8 @@ body {
 
 .pd-logo {
   position: fixed;
-  bottom: 20px;
-  left: 20px;
+  bottom: 00px;
+  left: -50px;
   width: 150px;
   height: 45px;
 }
@@ -410,18 +410,10 @@ body {
 }
 
 .background-image{
-  width: 100%;
-  height: 100%;
-  background-size: auto 90%;
-}
-
-
-.graph-schema {
+  width: 10000px;
   position: fixed;
-  top: 50px;
-  left: 70px;
-
-  height: 750px;
+  top: 0px;
+  left: 0px;
 }
 
 .small-img {
@@ -435,4 +427,8 @@ body {
 
 .med-img {
   height: 350px;
+}
+
+.med-small-img {
+  height: 300px;
 }
