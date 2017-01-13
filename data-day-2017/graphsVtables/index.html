@@ -27,35 +27,43 @@
 <div class="reveal">
     <div class="slides">
         <img src="pd-logo.png" class="pd-logo">
-        <section  data-markdown data-separator="---" data-separator-vertical="--" >
+        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
             <script type="text/template">
-                ### Graphs vs Tables: Ready? Fight.
-                #### Lessons learned from building similarity models in both graph and relational dbs
+                ## Graphs vs Tables: Ready? Fight.
+                ### Lessons learned from building similarity models in both graph and relational dbs
                 <br><br>
-                ###### Denise Gosnell, PhD
-                ###### Sr. Technical Evangelist, PokitDok
-                ---
-
+                #### Denise Gosnell, PhD
+                #### Sr. Technical Evangelist, PokitDok
+            </script>
+        </section>
+        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
+            <script type="text/template">
                 ### /about/pokitdok
-
+                <br>
+                <br>
+                <br>
                 --
-
-                ### The Operating System For The Business Of Health
+                ### /about/pokitdok
+                <br>
+                <br>
+                ### The API Platform For The Business Of Health
 
                 --
 
                 ### Obligatory map of API usage
 
-                <img src="AllEligiblityResponses.png" class="big-img" alt="Eligiblity API Usage">
+                <img src="USATransactions.png" class="big-img" alt="Snapshot of PD API Usage">
 
                 --
 
                 ### X12 Eligibility request
 
                 ```html
-                HL*1**20*1~NM1*PR*2*Premium Gold Insurance Co.*****PI*0123456~HL*2*1*21*1~NM1*1P*
-                1*Back*Has*Your***XX*9876543210~HL*3*2*22*0~TRN*1*89368DC6A14E4E529AA876ED416E8A9F
-                *1453915417~NM1*IL*1*A-lot*Lifts****MI*MEM10001~DMG*D8*19820315*M~EQ*98^33~
+                HL*1**20*1~NM1*PR*2*Premium Gold Insurance Co.****
+                *PI*0123456~HL*2*1*21*1~NM1*1P*1*Back*Has*Your***X
+                X*9876543210~HL*3*2*22*0~TRN*1*89368DC6A14E4E529AA
+                876ED416E8A9F*1453915417~NM1*IL*1*A-lot*Lifts****M
+                I*MEM10001~DMG*D8*19820315*M~EQ*98^33~
                 ```
                 <br>
                 ##### (the spec for this one request is 552 pages)
@@ -66,19 +74,21 @@
 
                 ```javascript
                 {
-                "member": {
-                "birth_date": "1982-03-15",
-                "first_name": "Lifts",
-                "last_name": "A-Lot",
-                "id": "MEM10001"
+                  "member": {
+                  "birth_date": "1982-03-15",
+                  "first_name": "Lifts",
+                  "last_name": "A-Lot",
+                  "id": "MEM10001"
                 },
-                "provider": {
-                "first_name": "Has-Your",
-                "last_name": "Back",
-                "npi": "9876543210"
+                  "provider": {
+                    "first_name": "Has-Your",
+                    "last_name": "Back",
+                    "npi": "9876543210"
                 },
-                "service_types": ["professional_physician_visit_office", "chiropractic"],
-                "trading_partner_id": "premium_gold_insurance"
+                  "service_types": [
+                    "professional_physician_visit_office",
+                    "chiropractic"],
+                  "trading_partner_id": "premium_gold_insurance"
                 }
                 ```
 
@@ -87,10 +97,13 @@
                 ### X12 Eligibility response
 
                 ```html
-                HL*1**20*1~NM1*PR*2*Premium Gold Insurance Co.*****PI*0123456~HL*2*1*21*1~NM1*1P*
-                1*Back*Has*Your***XX*9876543210~HL*3*2*22*0~TRN*2*89368DC6A14E4E529AA876ED416E8A9F*
-                1453915417NM1*IL*1*A-lot*Lifts****MI*MEM10001~N3*2150 Pleasant Drive~N4*Sunny*CA*
-                900010001~DMG*D8*19820315*M~DTP*291*D8*20141001~EB*B**98****10~EB*A**33*****.20~
+                HL*1**20*1~NM1*PR*2*Premium Gold Insurance Co.****
+                *PI*0123456~HL*2*1*21*1~NM1*1P*1*Back*Has*Your***X
+                X*9876543210~HL*3*2*22*0~TRN*2*89368DC6A14E4E529AA
+                876ED416E8A9F*1453915417NM1*IL*1*A-lot*Lifts****MI
+                *MEM10001~N3*2150 Pleasant Drive~N4*Sunny*CA*90001
+                0001~DMG*D8*19820315*M~DTP*291*D8*20141001~EB*B**9
+                8****10~EB*A**33*****.20~
                 ```
                 <br>
                 #### oh God make it stop
@@ -101,26 +114,26 @@
 
                 ```javascript
                 {
-                "coverage": [
-                "coinsurance": [
-                {
-                "benefit_percent": 0.2,
-                "service_types": [
-                "chiropractic"
-                ]
-                }
+                  "coverage": [
+                    "coinsurance": [
+                      {
+                        "benefit_percent": 0.2,
+                        "service_types": [
+                          "chiropractic"
+                        ]
+                      }
+                    ],
+                    "copay": {
+                      "copayment": {
+                        "amount": "10",
+                        "currency": "USD"
+                      },
+                    "service_types": [
+                      "professional_physician_visit_office"
+                    ]
+                  }
                 ],
-                "copay": {
-                "copayment": {
-                "amount": "10",
-                "currency": "USD"
-                },
-                "service_types": [
-                "professional_physician_visit_office"
-                ]
-                }
-                ],
-                "plan_begin_date": "2014-10-01",
+                  "plan_begin_date": "2014-10-01",
 
                 (...and so on...)
                 }
@@ -128,9 +141,244 @@
                 ---
                 ### Enter the data storage debate:
                 <br>
-                ##### relational? graph? document store...?
+                ### relational? graph? document store...?
+                --
+                ## Problem 1:
+                <br>
+                ### How do we identify and **recommend similar**
+                ### doctors within our data?
+
+                --
+                ## Problem 1:
+                <br>
+                ### How do we identify and **recommend similar**
+                ### doctors within our data?
+                <br>
+                ## Enter graphs.
+
+            </script>
+        </section>
+        <section data-background="top_grossing_referral_physicians_small.jpeg">
+            <h3 style="text-align: right; padding: 0.0em 0.0em 15.0em 0.0em;">Medicare Referral Network</h3>
+        </section>
+        <section data-background="top_grossing_referral_physicians_small.jpeg">
+            <img src="1Bfraud.png" class="small-img">
+            <h4><a href="http://www.miamiherald.com/news/local/community/miami-dade/article91231277.html">From the Miami Herald</a></h4>
+        </section>
+        <section  data-markdown data-separator="---" data-separator-vertical="--" >
+            <script type="text/template">
+                ## Graph DB Infrastructure
+                <br>
+                1. API event streaming with Kafka
+                2. Persistence to Titan 0.5.3 backed by Cassandra
+                3. OLAP graph traversals
+            </script>
+        </section>
+        <section>
+            <img src="HealthGraph.png" class="small-img">
+            <h3>Graph DB Schema</h3>
+        </section>
+        <section data-background="providers_100k_v1_small.jpeg">
+            <h3 style="text-align: left; padding: 0.0em 0.0em 15.0em 0.0em;">PokitDok Top 100K Providers</h3>
+        </section>
+        <section  data-markdown data-separator="---" data-separator-vertical="--" >
+            <script type="text/template">
+                ## Problem 1:
+
+                ### How do we identify and recommend similar doctors within our data?
+
+                --
+                ## Sub Problem:
+
+                ### How do we identify similar doctors?
+
+                --
+                ## Triangular Closure
+
+                <img src="RecommendDoc.png" class="med-img" alt="Graph Similarity">
+
+                --
+                # Triangular Closure
+
+                <img src="probabilisticPaths.png" class="med-img" alt="Graph Similarity">
+
+                --
+                ## Triangular Closure
+
+                <img src="probabilisticPaths.png" class="med-img" alt="Graph Similarity">
+
+                ```javascript
+                pr( E(v_d|v_c) ) = \frac{|(v_d, v_t, v_c)|}{|E(v_t, v_c)|}
+                ```
+                --
+                ## OLAP Traversals
+
+                <img src="bipartieGraphSim_1.png" class="med-img" alt="Graph Similarity">
+
+                --
+                ## OLAP Traversals
+
+                <img src="doc_sim_0.png" class="med-img" alt="Graph Similarity">
+
+                ```python
+                g.V.has("id", id)
+
+                ```
+
+                --
+                ## OLAP Traversals
+
+                <img src="doc_sim1_5.png" class="med-img" alt="Graph Similarity">
+
+
+                ```python
+                g.V.has("id", id).in()
+                ```
+
                 ---
-                /about/pokitdok
+
+
+                class: left, top
+
+                # OLAP Traversals
+
+                .center[<img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id", id).in().out()
+                ```
+
+
+                ---
+
+
+                class: left, top
+
+                # OLAP Traversals
+
+                .center[<img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id", id).in().out().filter{it.id != id}
+                ```
+
+
+                ---
+
+                class: left, top
+
+                # OLAP Traversals
+
+                .center[<img src="doc_sim3.png" class="med-img" alt="Graph Similarity">]
+
+                ```groovy
+                g.V.has("id", id).in().out().filter{it.id !=id}.groupCount(m)
+                ```
+
+                ---
+                class: left, top
+
+                # OLAP Traversals
+
+                .center[<img src="doc_sim3.png" class="med-img" alt="Graph Similarity">]
+
+                ```groovy
+                g.V.has("id", id).in().out().filter{it.id !=id}.groupCount(m)
+                sort{a,b -> b.value <=> a.value}[0..10]
+                ```
+                ---
+
+                class: center, top
+
+                #Sub Problem:
+
+                ### How do we recommend similar doctors within our data?
+
+                ---
+
+                class: left, top
+                ### OLAP for recommendation
+
+                .center[<img src="bipartieGraphSim_1.png" class="med-img" alt="Graph Similarity">]
+
+                ---
+
+                class: left, top
+                ### OLAP for recommendation
+
+
+                .center[<img src="bipartieGraphSim_2.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                ```
+
+                ---
+
+                class: left, top
+                ### OLAP for recommendation
+
+                .center[<img src="bipartieGraphSim_3.png" class="med-img" alt="Graph Similarity">]
+
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                   .in("scheduled_with").filter{it.id != id}
+                ```
+                ---
+
+                class: left, top
+                ### OLAP for recommendation
+
+                .center[<img src="bipartieGraphSim_4.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                   .in("scheduled_with").filter{it.id != id}
+                ```
+                ---
+
+                class: left, top
+                ### OLAP for recommendation
+
+                .center[<img src="bipartieGraphSim_5.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                   .in("scheduled_with").filter{it.id != id}
+                   .out("viewed")
+                ```
+                ---
+
+                class: left, top
+                ### OLAP for recommendation
+
+                .center[<img src="bipartieGraphSim_6.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                   .in("scheduled_with").filter{it.id != id}
+                   .out("viewed")
+                   .groupCount(m)
+                ```
+                ---
+
+                class: left, top
+
+                ### OLAP for recommendation
+
+                .center[<img src="bipartieGraphSim_7.png" class="med-img" alt="Graph Similarity">]
+
+                ```python
+                g.V.has("id",id).out("viewed")
+                   .in("scheduled_with").filter{it.id != id}
+                   .out("viewed")
+                   .groupCount(m)
+                sort{a,b -> b.value <=> a.value}[0..2]
+                ```
+
+                ---
+
             </script>
         </section>
     </div>
