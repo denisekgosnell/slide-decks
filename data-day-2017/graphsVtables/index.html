@@ -198,18 +198,19 @@
                 <img src="RecommendDoc.png" class="med-img" alt="Graph Similarity">
 
                 --
-                # Triangular Closure
+                ## Triangular Closure
 
                 <img src="probabilisticPaths.png" class="med-img" alt="Graph Similarity">
 
                 --
                 ## Triangular Closure
 
-                <img src="probabilisticPaths.png" class="med-img" alt="Graph Similarity">
+                <img src="probabilisticPaths.png" class="med-img" alt="Triangular Closure">
+                <br>
+                <img src="algorithm.png" class="tiny-img" alt="Triangular Closure">
 
-                ```javascript
-                pr( E(v_d|v_c) ) = \frac{|(v_d, v_t, v_c)|}{|E(v_t, v_c)|}
-                ```
+                $$pr( E(v_d|v_c) ) = \frac{|(v_d, v_t, v_c)|}{|E(v_t, v_c)|}$$
+
                 --
                 ## OLAP Traversals
 
@@ -224,136 +225,99 @@
                 g.V.has("id", id)
 
                 ```
-
                 --
                 ## OLAP Traversals
 
                 <img src="doc_sim1_5.png" class="med-img" alt="Graph Similarity">
 
-
                 ```python
                 g.V.has("id", id).in()
                 ```
 
-                ---
+                --
+                ## OLAP Traversals
 
-
-                class: left, top
-
-                # OLAP Traversals
-
-                .center[<img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">]
+                <img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id", id).in().out()
                 ```
+                --
+                ## OLAP Traversals
 
-
-                ---
-
-
-                class: left, top
-
-                # OLAP Traversals
-
-                .center[<img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">]
+                <img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id", id).in().out().filter{it.id != id}
                 ```
+                --
+                ## OLAP Traversals
 
-
-                ---
-
-                class: left, top
-
-                # OLAP Traversals
-
-                .center[<img src="doc_sim3.png" class="med-img" alt="Graph Similarity">]
+                <img src="doc_sim3.png" class="med-img" alt="Graph Similarity">
 
                 ```groovy
                 g.V.has("id", id).in().out().filter{it.id !=id}.groupCount(m)
                 ```
 
-                ---
-                class: left, top
+                --
+                ## OLAP Traversals
 
-                # OLAP Traversals
-
-                .center[<img src="doc_sim3.png" class="med-img" alt="Graph Similarity">]
+                <img src="doc_sim3.png" class="med-img" alt="Graph Similarity">
 
                 ```groovy
                 g.V.has("id", id).in().out().filter{it.id !=id}.groupCount(m)
                 sort{a,b -> b.value <=> a.value}[0..10]
                 ```
-                ---
-
-                class: center, top
-
-                #Sub Problem:
+                --
+                ## Sub Problem:
 
                 ### How do we recommend similar doctors within our data?
 
-                ---
+                --
+                ## OLAP for recommendation
 
-                class: left, top
-                ### OLAP for recommendation
+                <img src="bipartieGraphSim_1.png" class="med-img" alt="Graph Similarity">
 
-                .center[<img src="bipartieGraphSim_1.png" class="med-img" alt="Graph Similarity">]
-
-                ---
-
-                class: left, top
-                ### OLAP for recommendation
-
-
-                .center[<img src="bipartieGraphSim_2.png" class="med-img" alt="Graph Similarity">]
+                --
+                ## OLAP for recommendation
+                <img src="bipartieGraphSim_2.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                 ```
 
-                ---
+                --
+                ## OLAP for recommendation
 
-                class: left, top
-                ### OLAP for recommendation
-
-                .center[<img src="bipartieGraphSim_3.png" class="med-img" alt="Graph Similarity">]
-
+                <img src="bipartieGraphSim_3.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                    .in("scheduled_with").filter{it.id != id}
                 ```
-                ---
+                --
+                ## OLAP for recommendation
 
-                class: left, top
-                ### OLAP for recommendation
-
-                .center[<img src="bipartieGraphSim_4.png" class="med-img" alt="Graph Similarity">]
+                <img src="bipartieGraphSim_4.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                    .in("scheduled_with").filter{it.id != id}
                 ```
-                ---
+                --
+                ## OLAP for recommendation
 
-                class: left, top
-                ### OLAP for recommendation
-
-                .center[<img src="bipartieGraphSim_5.png" class="med-img" alt="Graph Similarity">]
+                <img src="bipartieGraphSim_5.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
                    .in("scheduled_with").filter{it.id != id}
                    .out("viewed")
                 ```
-                ---
+                --
+                ## OLAP for recommendation
 
-                class: left, top
-                ### OLAP for recommendation
-
-                .center[<img src="bipartieGraphSim_6.png" class="med-img" alt="Graph Similarity">]
+                <img src="bipartieGraphSim_6.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
@@ -361,13 +325,10 @@
                    .out("viewed")
                    .groupCount(m)
                 ```
-                ---
+                --
+                ## OLAP for recommendation
 
-                class: left, top
-
-                ### OLAP for recommendation
-
-                .center[<img src="bipartieGraphSim_7.png" class="med-img" alt="Graph Similarity">]
+                <img src="bipartieGraphSim_7.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id",id).out("viewed")
@@ -376,6 +337,29 @@
                    .groupCount(m)
                 sort{a,b -> b.value <=> a.value}[0..2]
                 ```
+
+                --
+                ## Where to go from here?
+
+                ### Docker container with full example: [PokitDok's gremlin-python lib on GitHub](https://github.com/pokitdok/gremlin-python)
+                ### Our Custom build of Titan: also on git
+                ### Our blog for more on graph load testing and visualizations: fullmetalhealth.com
+
+                --
+                ## The Brass Tax about Graphs
+                ### Architecture and Implementation:
+                Modeling relationships within data for extracting useful information
+                is well documented; but implementation is different issue.
+
+
+                --
+                ## DB Maturity:
+                We've had ups and downs with just about every vendor out there.
+
+
+                --
+                ## Visualizations:
+                D3 and Gephi get you covered with everything you need.
 
                 ---
 
@@ -401,5 +385,23 @@
         ]
     });
 </script>
+<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
+    <script type="text/javascript">
+      var slideshow = remark.create();
+
+      // Setup MathJax
+      MathJax.Hub.Config({
+          tex2jax: {
+          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
+          }
+      });
+      MathJax.Hub.Queue(function() {
+          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
+              return(elem.SourceElement());
+          }).parent().addClass('has-jax');
+      });
+
+      MathJax.Hub.Configured();
+    </script>
 </body>
 </html>
