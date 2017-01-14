@@ -4,6 +4,26 @@
  * GLOBAL STYLES
  *********************************************/
 
+
+/*********************************************
+ * PD GLOBAL STYLE SETTINGS
+ *********************************************/
+$linkColor: #e7e7e6;
+$linkColorHover: lighten( $linkColor, 20% );
+
+$heading1Size: 2.11em;
+$heading2Size: 1.55em;
+$heading3Size: 1.00em;
+$heading4Size: 0.70em;
+
+// Primary/body text
+$mainFont: "Muli", "Muli Light", Impact, sans-serif;
+$mainFontSize: 40px;
+$mainColor: #eee;
+
+$headingFont: "Muli", "Muli Light", Impact, sans-serif;
+$headingColor:  #eee;
+
 body {
 	@include bodyBackground();
 	background-color: $backgroundColor;
@@ -37,7 +57,7 @@ body {
 /*********************************************
  * HEADERS
  *********************************************/
-
+@import url(https://fonts.googleapis.com/css?family=Muli);
 .reveal h1,
 .reveal h2,
 .reveal h3,
@@ -47,12 +67,13 @@ body {
 	margin: $headingMargin;
 	color: $headingColor;
 
-	font-family: $headingFont;
-	font-weight: $headingFontWeight;
+	font-family: "Muli Light", "Muli";
+	font-weight: "Light";
+    font-size: 2.5rem;
 	line-height: $headingLineHeight;
 	letter-spacing: $headingLetterSpacing;
 
-	text-transform: $headingTextTransform;
+	text-transform: none;
 	text-shadow: $headingTextShadow;
 
 	word-wrap: break-word;
@@ -176,6 +197,8 @@ body {
 }
 .reveal code {
 	font-family: monospace;
+    font-size: 1.5rem;
+    line-height: 1.15;
 }
 
 .reveal pre code {
@@ -350,3 +373,62 @@ body {
 	}
 
 
+
+/*********************************************
+ * PD THEMING OVERRIDES
+ *********************************************/
+
+.slide {
+  background: #681d68;
+  color: white;
+}
+
+.remark-code, .remark-inline-code {
+  font-family:'Ubuntu Mono';
+  font-size: 2.5rem;
+}
+
+.pd-logo {
+  position: fixed;
+  bottom: 00px;
+  left: -50px;
+  width: 150px;
+  height: 45px;
+}
+
+.big-img {
+  height: 450px;
+}
+
+.really-big-img {
+  height: 600px;
+}
+
+.hco-img {
+  width: 90%;
+  height: 90%;
+}
+
+.background-image{
+  width: 10000px;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+}
+
+.small-img {
+  height: 250px;
+}
+
+
+.tiny-img {
+  height: 150px;
+}
+
+.med-img {
+  height: 350px;
+}
+
+.med-small-img {
+  height: 300px;
+}

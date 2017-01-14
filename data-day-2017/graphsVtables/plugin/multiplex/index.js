@@ -34,7 +34,7 @@ app.get("/", function(req, res) {
 
 	var stream = fs.createReadStream(opts.baseDir + '/index.html');
 	stream.on('error', function( error ) {
-		res.write('<style>body{font-family: sans-serif;}</style><h2>reveal.js multiplex server.</h2><a href="/token">Generate token</a>');
+		res.write('<style>body{font-family:"Muli", sans-serif;}</style><h2>reveal.js multiplex server.</h2><a href="/token">Generate token</a>');
 		res.end();
 	});
 	stream.on('readable', function() {

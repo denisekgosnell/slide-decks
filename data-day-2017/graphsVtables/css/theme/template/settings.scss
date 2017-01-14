@@ -14,7 +14,7 @@ $blockMargin: 20px;
 
 // Headings
 $headingMargin: 0 0 $blockMargin 0;
-$headingFont: 'League Gothic', Impact, sans-serif;
+$headingFont: 'Muli', "Muli Light" Impact, sans-serif;
 $headingColor: #eee;
 $headingLineHeight: 1.2;
 $headingLetterSpacing: normal;
@@ -23,13 +23,13 @@ $headingTextShadow: none;
 $headingFontWeight: normal;
 $heading1TextShadow: $headingTextShadow;
 
-$heading1Size: 3.77em;
-$heading2Size: 2.11em;
-$heading3Size: 1.55em;
-$heading4Size: 1.00em;
+$heading1Size: 2.11em;
+$heading2Size: 1.55em;
+$heading3Size: 1.00em;
+$heading4Size: 0.70em;
 
 // Links and actions
-$linkColor: #13DAEC;
+$linkColor: #e7e7e6;
 $linkColorHover: lighten( $linkColor, 20% );
 
 // Text selection
