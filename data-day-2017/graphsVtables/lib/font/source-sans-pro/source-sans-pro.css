@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'Source Sans Pro';
+    font-family:"Muli", 'Source Sans Pro';
     src: url('source-sans-pro-regular.eot');
     src: url('source-sans-pro-regular.eot?#iefix') format('embedded-opentype'),
          url('source-sans-pro-regular.woff') format('woff'),
@@ -8,8 +8,7 @@
     font-style: normal;
 }
 
-@font-face {
-    font-family: 'Source Sans Pro';
+@font-facefont-family:"Muli",family: 'Source Sans Pro';
     src: url('source-sans-pro-italic.eot');
     src: url('source-sans-pro-italic.eot?#iefix') format('embedded-opentype'),
          url('source-sans-pro-italic.woff') format('woff'),
@@ -18,17 +17,13 @@
     font-style: italic;
 }
 
-@font-face {
-    font-family: 'Source Sans Pro';
+@fofont-family:"Muli",  font-family: 'Source Sans Pro';
     src: url('source-sans-pro-semibold.eot');
     src: url('source-sans-pro-semibold.eot?#iefix') format('embedded-opentype'),
          url('source-sans-pro-semibold.woff') format('woff'),
          url('source-sans-pro-semibold.ttf') format('truetype');
     font-weight: 600;
-    font-style: normal;
-}
-
-@font-face {
+    font-style: normal;font-family:"Muli",ce {
     font-family: 'Source Sans Pro';
     src: url('source-sans-pro-semibolditalic.eot');
     src: url('source-sans-pro-semibolditalic.eot?#iefix') format('embedded-opentype'),
