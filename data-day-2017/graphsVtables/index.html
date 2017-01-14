@@ -167,7 +167,7 @@
             <img src="1Bfraud.png" class="small-img">
             <h4><a href="http://www.miamiherald.com/news/local/community/miami-dade/article91231277.html">From the Miami Herald</a></h4>
         </section>
-        <section  data-markdown data-separator="--" >
+        <section  data-markdown data-separator="--" data-transition="none">
             <script type="text/template">
                 ## Graph DB Infrastructure
                 <br>
@@ -176,13 +176,7 @@
                 3. OLAP graph traversals
                 <br>
                 <br>
-            </script>
-        </section>
-        <section data-background-image="providers_100k_v1_small.jpeg" data-background-size="1100px" data-background-color="#2D2E30">
-            <h4 style="text-align: left; padding: 0.0em 0.0em 25.0em 0.0em;">Top Providers</h4>
-        </section>
-        <section  data-markdown data-separator="--" data-transition="none">
-            <script type="text/template">
+                --
                 ## Problem 1:
 
                 ### How do we identify and recommend similar doctors within our data?
@@ -373,7 +367,13 @@
                 sort{a,b -> b.value <=> a.value}[0..2]
                 ```
                 <br>
-                --
+            </script>
+        </section>
+        <section data-background-image="providers_100k_v1_small.jpeg" data-background-size="1100px" data-background-color="#2D2E30">
+            <h4 style="text-align: left; padding: 0.0em 0.0em 25.0em 0.0em;">Top Providers</h4>
+        </section>
+        <section  data-markdown data-separator="--" data-transition="none">
+            <script type="text/template">
                 ## Where to go from here?
                 <br>
                 1. Docker container with full example:
@@ -448,14 +448,14 @@
 
                 ```
                          |  member_id  |  npi  |     date     |  coverage_amount | ...
-                event_1  |     abc     |  123  |  2016 01 01  |       100        | ...
-                event_2  |     def     |  123  |  2016 01 01  |        75        | ...
-                event_3  |     abc     |  456  |  2016 01 02  |       100        | ...
-                event_4  |     def     |  456  |  2016 01 02  |        75        | ...
-                event_5  |     abc     |  789  |  2016 01 03  |       300        | ...
-                event_6  |     def     |  789  |  2016 01 03  |       200        | ...
+                doc_1    |     abc     |  123  |  2016 01 01  |       100        | ...
+                doc_2    |     def     |  123  |  2016 01 01  |        75        | ...
+                doc_3    |     abc     |  456  |  2016 01 02  |       100        | ...
+                doc_4    |     def     |  456  |  2016 01 02  |        75        | ...
+                doc_5    |     abc     |  789  |  2016 01 03  |       300        | ...
+                doc_6    |     def     |  789  |  2016 01 03  |       200        | ...
                   ...          ...        ...        ...              ...          ...
-                event_n  |     abc     |  123  |  2016 01 08  |       100        | ...
+                doc_n    |     abc     |  123  |  2016 01 08  |       100        | ...
 
                 ```
                 --
@@ -464,8 +464,37 @@
                 * Transaction table
                 * Application table
                 * Api table
+                * ... seems pretty straightforward, right?
+                --
+                ## SQL Query
+                ```
+                SET @start = '2017-01-01 00:00:00';
+                SET @end = '2017-01-14 00:00:00';
+
+                SELECT  YEAR(activities.activity_date) as 'year',
+                        MONTH(activities.activity_date) as 'month',
+                        DAY(activities.activity_date) as 'day',
+                        HOUR(activities.activity_date) as 'hour',
+                        COUNT(*) as 'total'
+                FROM activities
+                WHERE activities.activity_date BETWEEN @start and @end
+                group by YEAR(activities.activity_date),
+                        MONTH(activities.activity_date),
+                        DAY(activities.activity_date),
+                        HOUR(activities.activity_date);
+
+                ```
+                --
+                ## Fast Dashes
+                <img src="transactions.png" class="big-img" alt="transaction dashboard">
+                --
+                ## Relational Schema
+                <br>
+                * Transaction table
+                * Application table
+                * Api table
                 * Users table
-                * Oh! wait! we need to analyze valid/invalid insurance companies within the transactions!
+                * Oh.. wait! we need to [insert useful thing to measure]
                         ... add a table
 
                 --
@@ -478,21 +507,21 @@
                 <br>
                 <br>
                 --
-                ## What we really want: matrices
+                ### What we really want: matrices
 
                 --
                 ### JSON to matrix
                 <br>
                 ```
                          |  member_id.abc  |  member_id.def  |  npi.123  |  npi.456  |  npi.789 | ...
-                event_1  |        1        |        0        |     1     |     0     |     0    | ...
-                event_2  |        0        |        1        |     1     |     0     |     0    | ...
-                event_3  |        1        |        0        |     0     |     1     |     0    | ...
-                event_4  |        0        |        1        |     0     |     1     |     0    | ...
-                event_5  |        1        |        0        |     0     |     0     |     1    | ...
-                event_6  |        0        |        1        |     0     |     0     |     1    | ...
+                doc_1    |        1        |        0        |     1     |     0     |     0    | ...
+                doc_2    |        0        |        1        |     1     |     0     |     0    | ...
+                doc_3    |        1        |        0        |     0     |     1     |     0    | ...
+                doc_4    |        0        |        1        |     0     |     1     |     0    | ...
+                doc_5    |        1        |        0        |     0     |     0     |     1    | ...
+                doc_6    |        0        |        1        |     0     |     0     |     1    | ...
                   ...            ...               ...            ...         ...         ...
-                event_n  |        1        |        0        |     1     |     0     |     0    | ...
+                doc_n    |        1        |        0        |     1     |     0     |     0    | ...
 
                 ```
                 <br>
@@ -528,30 +557,53 @@
                 ####          go crazy.
 
                 --
-                ## Co-occurrence Analysis
-                <img src="Co-Occurance.jpg" class="big-img" alt="Graph Similarity">
+                ## LDA
 
-                --
-                ## Co-occurrence Analysis
-                <img src="Co-Occurance.jpg" class="small-img" alt="Co-Occurance Similarity">
-
-                ```python
-                import numpy as np
-                import seaborn as sns
-                import pandas as pd
-
-                co_occurance_matrix = np.dot(data, data.transpose())
-                co_occurance_df = pd.DataFrame(data=co_occurance[0:,0:])
-                sns.set()
-                sns.heatmap(co_occurance_df, annot=True, fmt="d", linewidths=.5)
-                ```
+                * Unsupervised machine learning for document topic discovey
                 <br>
+                <br>
+                <br>
+                <br>
+                <br>
+                --
+                ## LDA
 
+                * Unsupervised machine learning for document topic discovey
+                * Examples:
+                <br>  I like broccoli and bananas.
+                <br>  My sister adopted a hampster.
+                <br>  Look at this hampster munching on a banana.
+                --
+                ### Our Eligibility response to bag of words
+
+                ```javascript
+                {
+                  "coverage": [
+                    "coinsurance": [
+                      {
+                        "benefit_percent": 0.2,
+                        "service_types": [
+                          "chiropractic"
+                        ]
+                      },
+                      "service_types": [
+                        "professional_physician_visit_office"
+                      ]
+                  (...and so on...)
+                }
+                ```
+                coverage, coinsurance,
+                <br>chiropractic, professional_physician_visit_office, ...
+                <br>
+                <br>
+                --## Document Topics
+                <img src="topics.png" class="big-img" alt="LDA dashboard">
                 --
                 ## Where to go from here?
                 <br>
                 1. For these slides, code, and notebooks: DeniseKGosnell on GitHub/Twitter
                 2. Our blog for [more on Kafka, load testing, and infrastructure discussions](https://fullmetalhealth.com/tag/spark/)
+                3. Our work with LDA and other markov models: [SnakeBytes](https://fullmetalhealth.com/snake_byte-14-writing-made-easy/)
                 <br>
                 <br>
 
@@ -570,7 +622,7 @@
                 <br>
                 <br>
                 <br>
-                <br>
+                
 
                 --
 
@@ -589,41 +641,26 @@
 
                 ```python
                 g.V.has("id",id).out("viewed")
-                   .in("scheduled_with").filter{it.id != id}
-                   .out("viewed")
-                   .groupCount(m)
+                .in("scheduled_with").filter{it.id != id}
+                .out("viewed")
+                .groupCount(m)
                 sort{a,b -> b.value <=> a.value}[0..2]
                 ```
-
+            </script>
+        </section>
+        <section data-background="top_grossing_referral_physicians_small.jpeg">
+            <h3 style="text-align: right; padding: 0.0em 0.0em 15.0em 0.0em;">Graph Visualization</h3>
+        </section>
+        <section  data-markdown data-separator="--">
+            <script type="text/template">
+                ## Tables: mature tech
+                <img src="transactions.png" class="big-img" alt="transaction dashboard">
                 --
-                ## Tables: use all the features
-                <img src="Co-Occurance.jpg" class="small-img" alt="Graph Similarity">
-
-                ```python
-                import numpy as np
-                import seaborn as sns
-                import pandas as pd
-
-                co_occurance_matrix = np.dot(data, data.transpose())
-                co_occurance_df = pd.DataFrame(data=co_occurance[0:,0:])
-                sns.set()
-                sns.heatmap(co_occurance_df, annot=True, fmt="d", linewidths=.5)
-                ```
+                ## Matrices: verbose feature modeling
+                <img src="topics.png" class="big-img" alt="LDA Dashboard">
                 <br>
+                --
 
-            </script>
-        </section>
-        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
-            <script type="text/template">
-                <img src="Co-Occurance.jpg" class="big-img" alt="Graph Similarity">
-                ## Tables: Similarity
-            </script>
-        </section>
-        <section data-background-image="SimilarTradingPartners.png" data-background-size="1000px" data-background-color="#000000">
-            <h3 style="text-align: right; padding: 0.0em 0.0em 15.0em 0.0em;">Graphs: Similarity</h3>
-        </section>
-        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
-            <script type="text/template">
                 ## Graphs vs Tables: Ready? Fight.
                 ### Lessons learned from building models in both graph and relational dbs
                 <br><br>
