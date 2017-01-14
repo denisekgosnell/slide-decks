@@ -178,8 +178,8 @@
                 <br>
             </script>
         </section>
-        <section data-background="providers_100k_v1_small.jpeg">
-            <h3 style="text-align: left; padding: 0.0em 0.0em 15.0em 0.0em;">PokitDok Top 100K Providers</h3>
+        <section data-background-image="providers_100k_v1_small.jpeg" data-background-size="1100px" data-background-color="#2D2E30">
+            <h4 style="text-align: left; padding: 0.0em 0.0em 25.0em 0.0em;">Top Providers</h4>
         </section>
         <section  data-markdown data-separator="--" data-transition="none">
             <script type="text/template">
@@ -193,9 +193,9 @@
                 ### How do we identify similar doctors?
 
                 --
-                ## Triangular Closure
+                ## Graph Schema
 
-                <img src="HealthGraph.png" class="med-img" alt="Graph Schema">
+                <img src="HealthGraph.png" class="big-img" alt="Graph Schema">
                 --
                 ## Triangular Closure
 
@@ -212,16 +212,19 @@
                 <img src="probabilisticPaths.png" class="med-img" alt="Triangular Closure">
                 <br>
                 <img src="algorithm.png" class="tiny-img" alt="Triangular Closure">
-
-                $$pr( E(v_d|v_c) ) = \frac{|(v_d, v_t, v_c)|}{|E(v_t, v_c)|}$$
-
-                --
-                ## OLAP Traversals
-
-                <img src="bipartieGraphSim_1.png" class="med-img" alt="Graph Similarity">
+                TODO MATH
+                $$pr( E(v_d|v_c) ) = \frac{|P(v_d, v_t, v_c)|}{|E(v_t, v_c)|}$$
 
                 --
-                ## OLAP Traversals
+                ## Bipartite graph traversal
+
+                <img src="bipartieGraphSim_1.png" class="big-img" alt="Graph Similarity">
+                <br>
+                <br>
+                <br>
+
+                --
+                ## Bipartite graph traversal
 
                 <img src="doc_sim_0.png" class="med-img" alt="Graph Similarity">
 
@@ -229,42 +232,45 @@
                 g.V.has("id", id)
 
                 ```
+                <br>
                 --
-                ## OLAP Traversals
+                ## Bipartite graph traversal
 
                 <img src="doc_sim1_5.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id", id).in()
                 ```
-
+                <br>
                 --
-                ## OLAP Traversals
+                ## Bipartite graph traversal
 
                 <img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id", id).in().out()
                 ```
+                <br>
                 --
-                ## OLAP Traversals
+                ## Bipartite graph traversal
 
                 <img src="doc_sim2png.png" class="med-img" alt="Graph Similarity">
 
                 ```python
                 g.V.has("id", id).in().out().filter{it.id != id}
                 ```
+                <br>
                 --
-                ## OLAP Traversals
+                ## Bipartite graph traversal
 
                 <img src="doc_sim3.png" class="med-img" alt="Graph Similarity">
 
                 ```groovy
                 g.V.has("id", id).in().out().filter{it.id !=id}.groupCount(m)
                 ```
-
+                <br>
                 --
-                ## OLAP Traversals
+                ## Bipartite graph traversal
 
                 <img src="doc_sim3.png" class="med-img" alt="Graph Similarity">
 
@@ -272,10 +278,12 @@
                 g.V.has("id", id).in().out().filter{it.id !=id}.groupCount(m)
                 sort{a,b -> b.value <=> a.value}[0..10]
                 ```
+                <br>
                 --
                 ## Sub Problem:
 
-                ### How do we recommend similar doctors within our data?
+                ### How do we recommend
+                ### similar doctors within our data?
 
                 --
                 ## OLAP for recommendation
@@ -386,12 +394,14 @@
                 --
                 ## Problem 2:
 
-                ### How do we group similar transactions of healthcare data?
+                ### How do we group similar
+                ### transactions of healthcare data?
                 <br>
                 --
                 ## Problem 2:
 
-                ### How do we group similar transactions of healthcare data?
+                ### How do we group similar
+                ### transactions of healthcare data?
                 ### Enter Tables.
 
                 --
@@ -496,25 +506,23 @@
 TODO CODE FORMATTING
                 ```python
 def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_separator="."):
-    if input_data:
-        if type(input_data) is dict:
-            for key, value in input_data.iteritems():
-                if not key in ignore_keys:
-                    key = '_'.join(key.split()).upper()
-                    next_key = key
-                    if parent_key:
-                        next_key = parent_key + key_separator + key
-                    list_of_keys = get_grammar(value, list_of_keys,
-                                                         ignore_keys, next_key)
-        elif type(input_data) is list:
-            for item in input_data:
-                list_of_keys = get_grammar(item, list_of_keys,ignore_keys, parent_key)
-        else:
-            input_data = '_'.join(str(input_data).split()).upper()
-            terminal_value = input_data
-            if parent_key:
-                terminal_value = parent_key + key_separator + input_data
-            list_of_keys.append(terminal_value)
+    if type(input_data) is dict:
+        for key, value in input_data.iteritems():
+            if not key in ignore_keys:
+                key = '_'.join(key.split()).upper()
+                next_key = key
+                if parent_key:
+                    next_key = parent_key + key_separator + key
+                list_of_keys = get_grammar(value, list_of_keys, ignore_keys, next_key)
+    elif type(input_data) is list:
+        for item in input_data:
+            list_of_keys = get_grammar(item, list_of_keys,ignore_keys, parent_key)
+    else:
+        input_data = '_'.join(str(input_data).split()).upper()
+        terminal_value = input_data
+        if parent_key:
+            terminal_value = parent_key + key_separator + input_data
+        list_of_keys.append(terminal_value)
     return list_of_keys
                 ```
                 --
@@ -537,19 +545,13 @@ def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_s
                 ```
                 --
 
-                # From matrix to  ...
-                ### You want to do some reductions?
-                ####            PCA, SVD, NMF ... go crazy.
-
-                --
-                TODO glasses
-                ### You say similarity? Ready for that too.
-                #### Entity Co-occurence, K-means clustering, LDA ...
-                (•_•)
+                ## From matrix to  ...
+                * You want to do some reductions?
+                ####            PCA, SVD, NMF ...
+                * You want to do some similarity models?
+                ####            co-occurance, kmeans, LDA ...
                 <br>
-                      ( • _ •)> ⌐■-■
-                <br>
-                                   (⌐■_■)
+                ####          go crazy.
 
                 --
                 ## Co-occurrence Analysis
@@ -557,7 +559,7 @@ def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_s
 
                 --
                 ## Co-occurrence Analysis
-                <img src="Co-Occurance.jpg" class="small-img" alt="Graph Similarity">
+                <img src="Co-Occurance.jpg" class="small-img" alt="Co-Occurance Similarity">
 
                 ```python
                 import numpy as np
@@ -570,22 +572,6 @@ def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_s
                 sns.heatmap(co_occurance_df, annot=True, fmt="d", linewidths=.5)
                 ```
                 <br>
-                --
-                ## Kmeans Analysis
-
-                <img src="kMeansInertia.png" class="med-img" alt="Graph Similarity">
-
-
-
-                --
-                ## Kmeans Analysis
-
-                <img src="diffInertia.png" class="med-img" alt="Graph Similarity">
-
-                --
-                ## Visualizing Clusters
-
-                <img src="circlePacking.png" class="big-img" alt="Graph Similarity">
 
                 --
                 ## Where to go from here? TODO LINKS
@@ -599,11 +585,16 @@ def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_s
                 2. DB Maturity: but scalability is relative.
                 3. Visualizations: Plenty of tools to choose from
 
-                ---
+                --
 
                 ## Graphs v. Tables
 
                 ### did we decide anything?
+                <br>
+                <br>
+                <br>
+                <br>
+                <br>
 
                 --
 
@@ -652,7 +643,7 @@ def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_s
                 ## Tables: Similarity
             </script>
         </section>
-        <section data-background="SimilarTradingPartners.png">
+        <section data-background-image="SimilarTradingPartners.png" data-background-size="1000px" data-background-color="#000000">
             <h3 style="text-align: right; padding: 0.0em 0.0em 15.0em 0.0em;">Graphs: Similarity</h3>
         </section>
         <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
