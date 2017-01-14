@@ -27,7 +27,7 @@
 <div class="reveal">
     <div class="slides">
         <img src="pd-logo.png" class="pd-logo">
-        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
+        <section  data-markdown data-separator="---" style="text-align: center;" >
             <script type="text/template">
                 ## Graphs vs Tables: Ready? Fight.
                 ### Lessons learned from building models in both graph and relational dbs
@@ -36,7 +36,7 @@
                 #### Sr. Technical Evangelist, PokitDok
             </script>
         </section>
-        <section  data-markdown data-separator="---" data-separator-vertical="--" style="text-align: center;" >
+        <section  data-markdown data-separator="--" data-transition="none" >
             <script type="text/template">
                 ### /about/pokitdok
                 <br>
@@ -138,23 +138,25 @@
                 (...and so on...)
                 }
                 ```
-                ---
+                --
                 ### Enter the data storage debate:
                 <br>
                 ### relational? graph? document store...?
                 --
-                ## Problem 1:
+                ## Model 1:
                 <br>
                 ### How do we identify and **recommend similar**
                 ### doctors within our data?
-
+                <br>
+                <br>
                 --
-                ## Problem 1:
-                <br>
-                ### How do we identify and **recommend similar**
-                ### doctors within our data?
+                ## Model 1:
                 <br>
                 ## Enter graphs.
+                <br>
+                <br>
+                <br>
+
 
             </script>
         </section>
@@ -165,7 +167,7 @@
             <img src="1Bfraud.png" class="small-img">
             <h4><a href="http://www.miamiherald.com/news/local/community/miami-dade/article91231277.html">From the Miami Herald</a></h4>
         </section>
-        <section  data-markdown data-separator="---" data-separator-vertical="--" >
+        <section  data-markdown data-separator="--" >
             <script type="text/template">
                 ## Graph DB Infrastructure
                 <br>
@@ -179,7 +181,7 @@
         <section data-background="providers_100k_v1_small.jpeg">
             <h3 style="text-align: left; padding: 0.0em 0.0em 15.0em 0.0em;">PokitDok Top 100K Providers</h3>
         </section>
-        <section  data-markdown data-separator="---" data-separator-vertical="--" >
+        <section  data-markdown data-separator="--" data-transition="none">
             <script type="text/template">
                 ## Problem 1:
 
@@ -381,7 +383,7 @@
                 <br>
                 <br>
 
-                ---
+                --
                 ## Problem 2:
 
                 ### How do we group similar transactions of healthcare data?
@@ -682,23 +684,5 @@ def get_grammar(input_data, list_of_keys, ignore_keys=[], parent_key=None, key_s
         ]
     });
 </script>
-<script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS_HTML&delayStartupUntil=configured" type="text/javascript"></script>
-    <script type="text/javascript">
-      var slideshow = remark.create();
-
-      // Setup MathJax
-      MathJax.Hub.Config({
-          tex2jax: {
-          skipTags: ['script', 'noscript', 'style', 'textarea', 'pre']
-          }
-      });
-      MathJax.Hub.Queue(function() {
-          $(MathJax.Hub.getAllJax()).map(function(index, elem) {
-              return(elem.SourceElement());
-          }).parent().addClass('has-jax');
-      });
-
-      MathJax.Hub.Configured();
-    </script>
 </body>
 </html>
